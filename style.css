@@ -71,6 +71,10 @@ body{
 .inv-button{
     position: absolute;
 }
+.door:hover{
+    cursor: pointer;
+}
+
 #door-1{
     position: absolute; 
     left:127px; top:69px; width:673px; height:646px;
@@ -254,6 +258,7 @@ body{
 .propp-button{
     position: absolute;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 
