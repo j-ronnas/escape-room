@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <button id="AREA" onclick="drawArea()">AREA</button>
+    <div id="start-screen">
+        <p>Hur många spelare är ni?</p>
+        <input id="no-players" type="number" min="1" max="5">
+        <p>Vilken spelare är du?</p>
+        <input id="player-id" type="number" min="1" max="5">
+        <button onclick="StartGame(this)">START</button>
+    </div>
+
+    <div class="game-container" style="display:none">
+    <!--UTOMHUS-->
+    <div class="room-div" id="room-1" style="background-image: url(img/room_outside/room_1.jpg); display: none;">
+        <div id="door-1" onclick="CodeLock(this)"></div>
+    </div>
+  
+    <!--HALLEN-->
+    <div class="room-div" id="room-2" style="background-image: url(img/room_hallen/hallen_1.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('2-1')" style="left:436px;top:215px;width:285px;height:329px;"></div>
+    </div>
+    
+    <div class="room-div" id="room-2-1" style="background-image: url(img/room_hallen/hallen_1-1.jpg); display: none;"></div>
+
+    <div class="room-div" id="room-3" style="background-image: url(img/room_hallen/hallen_2.jpg); display: none;">
+        <div id="door-4" onclick="CodeLock(this)"></div>
+    </div>
+    <div class="room-div" id="room-4" style="background-image: url(img/room_hallen/hallen_3.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('4-1')" style="left:295px;top:178px;width:128px;height:216px;"></div>
+        <div id="door-2" onclick="CodeLock(this)" ></div>
+        <div class="inv-button" onclick="SwitchRoom(1)" style="left:546px;top:184px;width:164px;height:372px;"></div>
+    </div>
+    <div class="room-div" id="room-4-1" style="background-image: url(img/room_hallen/hallen_3-1.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('4-1-3')" style="left:471px;top:273px;width:90px;height:141px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('4-1-1')" style="left:586px;top:143px;width:182px;height:142px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('4-1-2')" style="left:776px;top:155px;width:89px;height:67px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('4-1')" style="left:336px;top:288px;width:62px;height:96px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('4-1-4')" style="left:74px;top:224px;width:123px;height:66px;"></div>
+        <div  id="key-1" onclick="PickupKey(this)" ></div>
+        
+    </div>
+
+    <div class="room-div" id="room-4-1-1" style="background-image: url(img/room_hallen/hallen_3-1-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-4-1-2" style="background-image: url(img/room_hallen/hallen_3-1-2.jpg); display: none;"></div>
+    <div class="room-div" id="room-4-1-3" style="background-image: url(img/room_hallen/hallen_3-1-3.jpg); display: none;"></div>
+    <div class="room-div" id="room-4-1-4" style="background-image: url(img/room_hallen/hallen_3-1-4.jpg); display: none;"></div>
+
+    <div class="room-div" id="room-5" style="background-image: url(img/room_hallen/room_5.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('5-1')" style="left:332px; top:104px; width:188px; height:259px;"></div>
+    </div>
+    <div class="room-div" id="room-5-1" style="background-image: url(img/room_hallen/room_5-1.jpg); display: none;"></div>
+    
+    <!--BÄVERKULAN-->
+    <div class="room-div" id="room-6" style="background-image: url(img/room_baver/room_6.jpg); display: none;">
+        <div id="door-5" onclick="CodeLock(this, 'Lösenord:')"></div>
+        <div class="inv-button" onclick="SwitchRoom('7-1')" style="left:758px; top:466px; width:214px; height:60px; "></div>
+    </div>
+    <div class="room-div" id="room-6-1" style="background-image: url(img/room_baver/room_7-1.jpg); display: none;"></div>
+
+    <div class="room-div" id="room-7" style="background-image: url(img/room_baver/room_7.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('7-1')" style="left:57px; top:550px; width:204px; height:37px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('7-2')" style="left:190px; top:253px; width:208px; height:263px;"></div>
+    </div>
+
+    <div class="room-div" id="room-30" style="background-image: url(img/room_baver/room_15.jpg); display: none;">
+        <div id="door-6" onclick="CodeLock(this)"></div>
+        <div class="inv-button" onclick="SwitchRoom('30-1')" style="left:366px; top:398px; width:223px; height:151px;"></div>
+    </div>
+
+    <div class="room-div" id="room-30-1" style="background-image: url(img/room_baver/room_15-1.jpg); display: none;">
+        <div class="inv-button" onclick="PlaySound(this); PigButton(0)" style="left:293px; top:198px; width:263px; height:264px;   "></div>
+        <audio src="audio/oink.m4a" type="audio/m4a"></audio>
+    </div>
+    <div class="room-div" id="room-7-1" style="background-image: url(img/room_baver/room_7-1.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('7-1-1')" style="left:446px; top:334px; width:143px; height:87px;"></div>
+    </div>
+    <div class="room-div" id="room-7-1-1" style="background-image: url(img/room_baver/room_7-1-1.jpg); display: none;">
+        <div class="inv-button" id="codebox-6" onclick="LockBox(this, 'ABRA-wifi:')"style="left:304px; top:259px; width:400px; height:162px;   "></div>
+    </div>
+    <div class="room-div" id="room-7-1-1-1" style="background-image: url(img/room_baver/room_7-1-1-1.jpg); display: none;"></div>
+    
+    <div class="room-div" id="room-7-2" style="background-image: url(img/room_baver/room_7-2+a.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('7-2-1')" style="left:737px; top:403px; width:204px; height:142px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('7-2-2')" style="left:404px; top:573px; width:223px; height:80px;"></div>
+        <div class="candle" id="candle-1" onclick="Toggle(this); ToggleCandle(0)" style="background-image: url(img/room_baver/room_7-2+a.jpg);"></div>
+        <div class="candle" id="candle-2" onclick="Toggle(this); ToggleCandle(1)" style="background-image: url(img/room_baver/room_7-2+a.jpg);"></div>
+        <div class="candle" id="candle-3" onclick="Toggle(this); ToggleCandle(2)" style="background-image: url(img/room_baver/room_7-2+a.jpg);"></div>
+        <div class="candle" id="candle-4" onclick="Toggle(this); ToggleCandle(3)" style="background-image: url(img/room_baver/room_7-2+a.jpg);"></div>
+        <div class="candle" id="candle-5" onclick="Toggle(this); ToggleCandle(4)" style="background-image: url(img/room_baver/room_7-2+a.jpg);"></div>
+
+
+    </div>
+    <div class="room-div" id="room-7-2-1" style="background-image: url(img/room_baver/room_7-2-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-7-2-2" style="background-image: url(img/room_baver/room_7-2-2.jpg); display: none;"></div>
+
+    <!--CAFERUMMET-->
+    <div class="room-div" id="room-8" style="background-image: url(img/room_cafe/cafe_1.jpg); display: none;">
+        <div id="door-7" onclick="CodeLock(this, 'Fyrsiffrig kod: ')"></div>
+        <div class="inv-button" onclick="SwitchRoom('8-1')" style="left:172px;top:302px;width:114px;height:132px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('8-2')" style="left:879px; top:463px; width:109px; height:155px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('8-3')" style="left:969px; top:255px; width:32px; height:119px; "></div>
+    </div>
+    <div class="room-div" id="room-8-1" style="background-image: url(img/room_cafe/room_8-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-8-2" style="background-image: url(img/room_cafe/skap_6.jpg); display: none;"></div>
+    <div class="room-div" id="room-8-3" style="background-image: url(img/room_cafe/skap_2.jpg); display: none;"></div>
+    <div class="room-div" id="room-9" style="background-image: url(img/room_cafe/cafe_3.jpg); display: none;">
+        <div id="door-8" onclick="CodeLock(this)"></div>
+        <div class="inv-button" onclick="SwitchRoom('9-1')" style="left:329px; top:319px; width:93px; height:126px; ">        </div>
+    </div>
+    
+    <div class="room-div" id="room-9-1" style="background-image: url(img/room_cafe/room_3-1.jpg); display: none;">
+        <div  id="key-7" onclick="PickupKey(this)" ></div>
+    </div>
+
+    <div class="room-div" id="room-10-2" style="background-image: url(img/room_cafe/skap_2.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('10-2-1')" style="left:191px; top:274px; width:126px; height:152px;">        </div>
+    </div>
+
+    <div class="room-div" id="room-10-2-1" style="background-image: url(img/room_cafe/skap_2-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-10-3" style="background-image: url(img/room_cafe/skap_3.jpg); display: none;">
+        <div class="inv-button" onclick="PlaySound(this); PigButton(1)" style="left:450px; top:438px; width:197px; height:212px; "></div>
+        <audio src="audio/oink.m4a" type="audio/m4a"></audio>
+    </div>
+    
+    <div class="room-div" id="room-10-4" style="background-image: url(img/room_cafe/skap_4.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('10-4-1')" style="left:716px; top:360px; width:75px; height:112px;">
+        </div>
+    </div>
+    <div class="room-div" id="room-10-4-1" style="background-image: url(img/room_cafe/skap_4-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-10-5" style="background-image: url(img/room_cafe/skap_5.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('10-5-1')" style="left:677px; top:374px; width:79px; height:99px;">
+        </div>
+    </div>
+    <div class="room-div" id="room-10-5-1" style="background-image: url(img/room_cafe/skap_5-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-10-6" style="background-image: url(img/room_cafe/skap_6.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('10-6-1')" style="left:808px; top:207px; width:111px; height:150px;">
+        </div>
+    </div>
+    <div class="room-div" id="room-10-6-1" style="background-image: url(img/room_cafe/skap_6-1.jpg); display: none;"></div>
+
+    <div class="room-div" id="room-10" style="background-image: url(img/room_cafe/cafe_2.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('10-2')" style="left:240px; top:166px; width:77px; height:128px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('10-3')" style="left:324px; top:172px; width:124px; height:116px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('10-4')" style="left:628px; top:170px; width:64px; height:322px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('10-5')" style="left:698px; top:174px; width:79px; height:328px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('10-6')" style="left:219px; top:396px; width:107px; height:127px; "></div>
+    </div>
+
+    <!--KORRIDOR OCH TRAPPA-->
+    <div class="room-div" id="room-11" style="background-image: url(img/room_korridor/room_11.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('11-2')" style="left:650px; top:306px; width:31px; height:91px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('11-1')" style="left:616px; top:369px; width:30px; height:71px;"></div>
+        <div id="door-9" onclick="CodeLock(this)"></div>
+    </div>
+    <div class="room-div" id="room-11-1" style="background-image: url(img/room_korridor/room_11-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-11-2" style="background-image: url(img/room_korridor/room_11-2.jpg); display: none;"></div>
+    <div class="room-div" id="room-12" style="background-image: url(img/room_korridor/room_12.jpg); display: none;">
+        <div id="door-11" onclick="CodeLock(this)"></div>
+        <div id="door-12" onclick="CodeLock(this, 'Du kapar mitt huvud utan att färga kniven röd. Sedan gråter du vid min sida när jag är död. Vem är jag?'); PlaySound(this)"></div>
+        <audio src="audio/riddle.mp3" type="audio/mp3"></audio>
+    </div>
+    <div class="room-div" id="room-13" style="background-image: url(img/room_korridor/room_13.jpg); display: none;">
+        <div id="door-10" onclick="CodeLock(this)"></div>
+    </div>
+
+    <div class="room-div" id="room-14" style="background-image: url(img/room_korridor/room_14.jpg); display: none;">
+        <div id="door-13" onclick="CodeLock(this)"></div>
+    </div>
+    <div class="room-div" id="room-15" style="background-image: url(img/room_korridor/room_15.jpg); display: none;">
+        <div id="door-14" onclick="CodeLock(this)"></div>
+    </div>
+    <div class="room-div" id="room-16" style="background-image: url(img/room_cleaning/room_16.jpg); display: none;">
+        <div id="door-15" onclick="CodeLock(this)"></div>
+        <div class="inv-button" onclick="SwitchRoom('16-1')" style="left:763px; top:155px; width:128px; height:97px; "></div>
+    </div>
+    <div class="room-div" id="room-16-1" style="background-image: url(img/room_cleaning/room_16-1.jpg); display: none;">
+        <div class="inv-button" onclick="PlaySound(this)" style="left:143px; top:108px; width:664px; height:536px;  "></div>
+        <audio src="audio/morse.wav" type="audio/ogg"></audio>
+    </div>
+    <div class="room-div" id="room-17" style="background-image: url(img/room_cleaning/room_17+a.jpg); display: none;">
+        <div onclick="Toggle(this)" style=" background-image: url(img/room_cleaning/room_17+a.jpg); position:absolute;left:351px; top:219px; width:249px; height:282px; background-position:-351px -219px;"></div>
+    </div>
+    <div class="room-div" id="room-18" style="background-image: url(img/room_cleaning/room_18.jpg); display: none;">
+        <div id="door-16" onclick="CodeLock(this)"></div>
+        <div class="inv-button" onclick="SwitchRoom('18-1')" style="left:137px; top:63px; width:102px; height:149px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('18-2')" style="left:352px; top:164px; width:100px; height:130px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('18-3')" style="left:286px; top:39px; width:58px; height:78px;  "></div>
+        <div class="inv-button" onclick="SwitchRoom('18-4')" style="left:296px; top:280px; width:90px; height:176px;  "></div>        
+    </div>
+
+    <div class="room-div" id="room-18-1" style="background-image: url(img/room_cleaning/room_18-1.jpg); display: none;">
+    </div>
+    <div class="room-div" id="room-18-2" style="background-image: url(img/room_cleaning/room_18-2.jpg); display: none;">
+    </div>
+    <div class="room-div" id="room-18-3" style="background-image: url(img/room_cleaning/room_18-3.jpg); display: none;">
+    </div>
+    <div class="room-div" id="room-18-4" style="background-image: url(img/room_cleaning/room_18-4.jpg); display: none;">
+    </div>
+
+    <!--KÖKET-->
+    <div class="room-div" id="room-19" style="background-image: url(img/room_kitchen/room_19.jpg); display: none;">
+        <div id="door-17" onclick="CodeLock(this, 'Tvåsiffrig kod:')"></div>
+        <div class="inv-button" onclick="SwitchRoom('19-1')" style="left:155px; top:209px; width:111px; height:131px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('19-2')" style="left:57px; top:217px; width:95px; height:123px;  "></div>
+        <div class="inv-button" onclick="SwitchRoom('19-3')" style="left:9px; top:217px; width:46px; height:108px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('21-1')" style="left:758px; top:326px; width:97px; height:347px;  "></div>
+    </div>
+
+    <div class="room-div" id="room-19-1" style="background-image: url(img/room_kitchen/room_19-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-19-2" style="background-image: url(img/room_kitchen/room_19-2.jpg); display: none;"></div>
+    <div class="room-div" id="room-19-3" style="background-image: url(img/room_kitchen/room_19-3.jpg); display: none;"></div>
+
+    <div class="room-div" id="room-20" style="background-image: url(img/room_kitchen/room_20.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('20-1')" style="left:681px; top:560px; width:321px; height:137px;  "></div>
+        <div class="inv-button" onclick="SwitchRoom('20-3')" style="left:838px; top:12px; width:171px; height:146px; ; "></div>
+        <div class="inv-button" onclick="SwitchRoom('20-4')" style="left:443px; top:11px; width:71px; height:153px;  "></div>
+        <div class="inv-button" onclick="SwitchRoom('20-5')" style="left:516px; top:12px; width:139px; height:144px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('20-6')" style="left:667px; top:10px; width:160px; height:139px;  "></div>
+        <div class="inv-button" onclick="SwitchRoom('20-7')" style="left:496px; top:294px; width:146px; height:192px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('20-8')" style="left:163px; top:340px; width:132px; height:248px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('20-9')" style="left:263px; top:253px; width:70px; height:29px;  "></div>
+        <div class="inv-button" onclick="SwitchRoom('20-A')" style="left:304px; top:4px; width:129px; height:150px;   "></div>
+        
+    </div>
+
+    <div class="room-div" id="room-20-1" style="background-image: url(img/room_kitchen/room_20-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-3" style="background-image: url(img/room_kitchen/room_20-3.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-4" style="background-image: url(img/room_kitchen/room_20-4.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-5" style="background-image: url(img/room_kitchen/room_20-5.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-6" style="background-image: url(img/room_kitchen/room_20-6.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-7" style="background-image: url(img/room_kitchen/room_20-7.jpg); display: none;">
+        <div class="inv-button" id="codebox-5" onclick="LockBox(this, 'Tresiffrig kod:')" style="left:672px; top:267px; width:168px; height:299px; "></div>
+    </div>
+    <div class="room-div" id="room-20-8" style="background-image: url(img/room_kitchen/room_20-8.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('20-8-2')" style="left:275px; top:199px; width:442px; height:137px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('20-8-4')" style="left:304px; top:489px; width:406px; height:113px;"></div>
+        <div class="inv-button" onclick="SwitchRoom('20-8-5')" style="left:316px; top:614px; width:387px; height:146px;"></div>
+        <div class="inv-button" id="lockbox-1" onclick="LockBox(this)"style="left:271px; top:37px; width:470px; height:160px;  "></div>
+        <div class="inv-button" id="lockbox-2" onclick="LockBox(this)"style="left:298px; top:350px; width:420px; height:128px;  "></div>
+    </div>
+    <div class="room-div" id="room-20-9" style="background-image: url(img/room_kitchen/room_20-9.jpg); display: none;">
+        <div class="inv-button" id="codebox-7" onclick="LockBox(this,'Slå ett telefonnummer för att ringa')" style="left:351px; top:199px; width:516px; height:328px;  "></div>
+    </div>
+    <div class="room-div" id="room-20-9-1" style="background-image: url(img/room_kitchen/room_20-9-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-A" style="background-image: url(img/room_kitchen/room_20-10.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-8-1" style="background-image: url(img/room_kitchen/room_20-8-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-8-2" style="background-image: url(img/room_kitchen/room_20-8-2.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-8-3" style="background-image: url(img/room_kitchen/room_20-8-3.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-8-4" style="background-image: url(img/room_kitchen/room_20-8-4.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-8-5" style="background-image: url(img/room_kitchen/room_20-8-5.jpg); display: none;"></div>
+    <div class="room-div" id="room-20-7-1" style="background-image: url(img/room_kitchen/room_20-7-1.jpg); display: none;">
+        <div class="inv-button" onclick="PlaySound(this); PigButton(2)" style="left:299px; top:280px; width:333px; height:215px;"></div>
+        <audio src="audio/oink.m4a" type="audio/m4a"></audio>
+    
+    </div>
+    
+
+
+    <div class="room-div" id="room-21" style="background-image: url(img/room_kitchen/room_21.jpg); display: none;">
+        <div id="door-18" onclick="CodeLock(this)"></div>
+        <div class="inv-button" onclick="SwitchRoom('17')" style="left:734px; top:254px; width:165px; height:319px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('21-1')" style="left:602px; top:365px; width:121px; height:89px;  "></div>
+        
+    </div>
+    <div class="room-div" id="room-21-1" style="background-image: url(img/room_kitchen/room_21-1.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('21-1-1')" style="left:239px; top:158px; width:535px; height:312px;   "></div>
+    </div>
+    <div class="room-div" id="room-21-1-1" style="background-image: url(img/room_kitchen/room_21-1-1.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('21-1-1-1')" style="left:685px; top:283px; width:182px; height:115px;   "></div>
+    </div>
+    <div class="room-div" id="room-21-1-2" style="background-image: url(img/room_kitchen/room_21-1-2.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('21-1-2-1')" style="left:352px; top:145px; width:161px; height:83px;   "></div>
+        <div class="inv-button" onclick="SwitchRoom('21-1-2-2')" style="left:702px; top:350px; width:185px; height:65px;  "></div>
+    </div>
+    <div class="room-div" id="room-21-1-3" style="background-image: url(img/room_kitchen/room_21-1-3.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('21-1-3-1')" style="left:719px; top:301px; width:180px; height:136px;  "></div>
+    </div>
+
+    <div class="room-div" id="room-21-1-1-1" style="background-image: url(img/room_kitchen/room_21-1-1-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-21-1-2-1" style="background-image: url(img/room_kitchen/room_21-1-2-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-21-1-2-2" style="background-image: url(img/room_kitchen/room_21-1-2-2.jpg); display: none;"></div>
+    <div class="room-div" id="room-21-1-3-1" style="background-image: url(img/room_kitchen/room_21-1-3-1.jpg); display: none;"></div>
+
+
+
+    <!--ÖVERVÅNING HALLEN-->
+    <div class="room-div" id="room-22" style="background-image: url(img/room_upstairshallen/room_22.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('22-1')" style="left:334px; top:225px; width:139px; height:160px;"></div>
+        <div id="door-21" onclick="CodeLock(this)"></div>
+    </div>
+    <div class="room-div" id="room-23" style="background-image: url(img/room_upstairshallen/room_23.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('23-1')" style="left:249px; top:152px; width:477px; height:341px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('23-2')" style="left:749px; top:367px; width:237px; height:279px; "></div>
+        <div id="door-22" onclick="CodeLock(this)"></div>
+    </div>
+    <div class="room-div" id="room-24" style="background-image: url(img/room_upstairshallen/room_24.jpg); display: none;">
+        <div id="door-20" onclick="CodeLock(this)"></div>
+    </div>
+    <div class="room-div" id="room-25" style="background-image: url(img/room_upstairshallen/room_25.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('24')" style="left:6px; top:133px; width:308px; height:457px;  "></div>
+        <div class="inv-button" id="codebox-1" onclick="LockBox(this, 'Sexsiffrig kod')" style="left:508px; top:93px; width:311px; height:225px; "></div>
+    </div>
+    <div class="room-div" id="room-25-1" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('25-1-1')" style="left:424px; top:397px; width:157px; height:62px; "></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(0)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:44px; top:104px; width:52px; height:48px; background-position:-44px -104px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(1)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:99px; top:106px; width:52px; height:50px; background-position:-99px -106px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(2)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:155px; top:110px; width:46px; height:38px; background-position:-155px -110px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(3)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:206px; top:106px; width:47px; height:52px; background-position:-206px -106px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(4)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:263px; top:107px; width:45px; height:46px; background-position:-263px -107px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(5)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:316px; top:110px; width:46px; height:49px; background-position:-316px -110px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(6)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:43px; top:199px; width:47px; height:40px; background-position:-43px -199px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(7)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:98px; top:195px; width:52px; height:45px; background-position:-98px -195px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(8)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:155px; top:198px; width:48px; height:47px; background-position:-155px -198px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(9)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:209px; top:201px; width:47px; height:47px; background-position:-209px -201px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(10)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:259px; top:196px; width:48px; height:48px; background-position:-259px -196px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(11)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:313px; top:199px; width:51px; height:48px; background-position:-313px -199px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(12)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:39px; top:288px; width:55px; height:46px; background-position:-39px -288px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(13)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:99px; top:287px; width:48px; height:41px; background-position:-99px -287px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(14)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:150px; top:286px; width:50px; height:43px; background-position:-150px -286px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(15)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:209px; top:287px; width:47px; height:40px; background-position:-209px -287px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(16)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:263px; top:290px; width:41px; height:46px; background-position:-263px -290px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(17)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:313px; top:285px; width:46px; height:48px; background-position:-313px -285px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(18)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:414px; top:211px; width:37px; height:31px; background-position:-414px -211px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(19)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:462px; top:204px; width:37px; height:44px; background-position:-462px -204px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(20)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:511px; top:196px; width:39px; height:53px; background-position:-511px -196px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(21)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:560px; top:201px; width:40px; height:51px; background-position:-560px -201px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(22)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:609px; top:200px; width:45px; height:55px; background-position:-609px -200px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(23)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:664px; top:202px; width:38px; height:51px; background-position:-664px -202px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(24)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:749px; top:202px; width:42px; height:47px; background-position:-749px -202px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(25)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:809px; top:206px; width:31px; height:41px; background-position:-809px -206px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(26)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:860px; top:204px; width:32px; height:44px; background-position:-860px -204px;"></div>
+        <div class="propp-button" onclick="Toggle(this); TogglePropp(27)" style="background-image: url(img/room_upstairshallen/room_25-1+a.jpg);left:902px; left:914px; top:205px; width:34px; height:42px; background-position:-914px -205px;"></div>
+
+    </div>
+    <div class="room-div" id="room-25-1-1" style="background-image: url(img/room_upstairshallen/room_25-1-1.jpg); display: none;">
+    </div>
+    <div class="room-div" id="room-23-1" style="background-image: url(img/room_upstairshallen/room_23-1.jpg); display: none;">
+        <div  id="key-2" onclick="PickupKey(this)" ></div>
+        <div class="inv-button" onclick="SwitchRoom('23-1-1')" style="left:407px; top:163px; width:158px; height:259px;  "></div>
+        <div class="inv-button" onclick="SwitchRoom('23-1-2')" style="left:675px; top:426px; width:279px; height:310px  "></div>
+        
+    </div>
+    <div class="room-div" id="room-23-1-1" style="background-image: url(img/room_upstairshallen/room_23-1-1.jpg); display: none;">
+    </div>
+    
+    <div class="room-div" id="room-23-1-2" style="background-image: url(img/room_upstairshallen/room_23-1-2.jpg); display: none;">
+    </div>
+
+
+    <div class="room-div" id="room-23-2" style="background-image: url(img/room_upstairshallen/room_23-2.jpg); display: none;">
+        <div class="inv-button" onclick="PlaySound(this); PigButton(3)" style="left:421px; top:325px; width:110px; height:175px; "></div>
+        <audio src="audio/oink.m4a" type="audio/m4a"></audio>
+    </div>
+    <div class="room-div" id="room-22-1" style="background-image: url(img/room_upstairshallen/room_22-1+a.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('22-1-1')" style="left:232px; top:351px; width:162px; height:133px;    "></div>
+        
+    </div>
+    <div class="room-div" id="room-22-1-1" style="background-image: url(img/room_upstairshallen/room_22-1-1.jpg); display: none;">
+
+        <div  id="key-3" onclick="PickupKey(this)" ></div>
+    </div>
+    
+
+
+    <!--Föörsamlingssalen-->
+
+
+    <div class="room-div" id="room-26" style="background-image: url(img/room_storsal/room_26.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('28')" style="left:228px; top:198px; width:280px; height:244px; ;"></div>
+        <div class="inv-button" onclick="SwitchRoom('26-1')" style="left:596px; top:377px; width:106px; height:44px; "></div>
+    </div>
+    <div class="room-div" id="room-27" style="background-image: url(img/room_storsal/room_27.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('25')" style="left:827px; top:271px; width:135px; height:288px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('24')" style="left:34px; top:257px; width:142px; height:310px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('27-1')" style="left:487px; top:452px; width:90px; height:44px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('27-2')" style="left:240px; top:459px; width:79px; height:49px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('27-3')" style="left:785px; top:455px; width:88px; height:48px; "></div>
+    </div>
+    <div class="room-div" id="room-28" style="background-image: url(img/room_storsal/room_28.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('28-1')" style="left:424px; top:318px; width:81px; height:64px;"></div>
+    </div>
+    <div class="room-div" id="room-29" style="background-image: url(img/room_storsal/room_29.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('18')" style="left:184px; top:276px; width:153px; height:377px;" ></div>
+        <div class="inv-button" onclick="SwitchRoom('19')" style="left:774px; top:292px; width:139px; height:410px;"></div>
+    </div>
+
+    <div class="room-div" id="room-26-1" style="background-image: url(img/room_storsal/room_26-1.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('26-1-1')" style="left:420px; top:582px; width:436px; height:173px; "></div>
+    </div>
+    <div class="room-div" id="room-26-1-1" style="background-image: url(img/room_storsal/room_26-1-1.jpg); display: none;">
+    </div>
+    <div class="room-div" id="room-27-1" style="background-image: url(img/room_storsal/room_27-1.jpg); display: none;">
+        <div class="inv-button" id="codebox-2" onclick="LockBox(this, 'Lösenord:')" style="left:312px; top:396px; width:317px; height:225px;  "></div>
+        <div class="inv-button" onclick="SwitchRoom('27-1-2')" style="left:633px; top:404px; width:370px; height:283px;  "></div>
+        
+    </div>
+    <div class="room-div" id="room-27-2" style="background-image: url(img/room_storsal/room_27-2.jpg); display: none;">
+        <div class="inv-button" id="codebox-3" onclick="LockBox(this, 'Lösenord:')" style="left:286px; top:458px; width:295px; height:219px; "></div>
+        <div class="inv-button" onclick="SwitchRoom('27-2-2')" style="left:588px; top:468px; width:392px; height:262px; "></div>
+    </div>
+    <div class="room-div" id="room-27-3" style="background-image: url(img/room_storsal/room_27-3.jpg); display: none;">
+        <div class="inv-button" id="codebox-4" onclick="LockBox(this, 'Lösenord:')" style="left:316px; top:226px; width:390px; height:226px;"></div>
+    </div>
+
+    <div class="room-div" id="room-28-1" style="background-image: url(img/room_storsal/room_28-1.jpg); display: none;">
+        <div id="door-23" onclick="CodeLock(this)"></div>
+    </div>
+    <div class="room-div" id="room-27-1-1" style="background-image: url(img/room_storsal/room_27-1-1.jpg); display: none;">
+        <div  id="key-5" onclick="PickupKey(this)" ></div>
+    </div>
+    <div class="room-div" id="room-27-2-1" style="background-image: url(img/room_storsal/room_27-2-1.jpg); display: none;">
+        <div  id="key-4" onclick="PickupKey(this)" ></div>
+    </div>
+    <div class="room-div" id="room-27-3-1" style="background-image: url(img/room_storsal/room_27-3-1.jpg); display: none;">
+        <div  id="key-6" onclick="PickupKey(this)" ></div>
+    </div>
+    <div class="room-div" id="room-27-1-2" style="background-image: url(img/room_storsal/room_27-1-2.jpg); display: none;"></div>
+    <div class="room-div" id="room-27-2-1-1" style="background-image: url(img/room_storsal/room_27-2-1-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-27-2-2" style="background-image: url(img/room_storsal/room_27-2-2.jpg); display: none;"></div>
+    <!--Kyrksalen-->
+    <div class="room-div" id="room-31" style="background-image: url(img/room_kyrksalen/room_29.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('31-1')" style="left:340px; top:361px; width:351px; height:152px;  "></div>
+    </div>
+    <div class="room-div" id="room-31-1" style="background-image: url(img/room_kyrksalen/room_29-1.jpg); display: none;">
+        <div class="inv-button" id="codebox-8" onclick="LockBox(this, 'Lägg ihop era personliga koder')" style="left:421px; top:483px; width:151px; height:111px; "></div>
+    </div>
+    <div class="room-div" id="room-31-1-1" style="background-image: url(img/room_kyrksalen/room_29-1-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-32-1" style="background-image: url(img/room_storsal/room_32-1.jpg); display: none;">
+        <div class="inv-button" onclick="SwitchRoom('31')" style="left:194px; top:233px; width:563px; height:400px;   "></div>
+    </div>
+    
+    <div class="room-div" id="room-32" style="background-color: black; display: none;" >
+        <video width="1004" height="756px" muted onended="SwitchRoom('32-1')">
+        <source src="img/room_storsal/Escape-room-open-door.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video> 
+    </div>
+    
+
+    <!--FUNCTIONALITY-->
+
+
+    <div id="pig-code">Personlig kod: <p>_ _ _ _</p> </div>
+    <div class="message-container">
+        
+    </div>
+    <div class="room-button-container" >
+        <div class="room-button" id="left-button" onclick="LeftRoom()">Left</div>
+        <div class="room-button" id="back-button" onclick="BackRoom()">Back</div>
+        <div class="room-button" id="right-button" onclick="RightRoom()">Right</div>
+    </div>
+    <div class="key-container">
+        <div class="key" id="key-1" style="display: none;"></div>
+        <div class="key" id="key-2" style="display: none;"></div>
+        <div class="key" id="key-3" style="display: none;"></div>
+        <div class="key" id="key-4" style="display: none;"></div>
+        <div class="key" id="key-5" style="display: none;"></div>
+        <div class="key" id="key-6" style="display: none;"></div>
+        <div class="key" id="key-7" style="display: none;"></div>
+
+    </div>
+    <div id="code-div">
+        <p>Kod:</p>
+        <input type="text">
+        <button>Enter</button>
+    </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="devtools.js"></script>
+</body>
+</html>
