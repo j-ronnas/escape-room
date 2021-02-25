@@ -9,11 +9,24 @@
 <body>
 
     <div id="start-screen">
-        <p>Hur många spelare är ni?</p>
-        <input id="no-players" type="number" min="1" max="5">
-        <p>Vilken spelare är du?</p>
-        <input id="player-id" type="number" min="1" max="5">
-        <button onclick="StartGame(this)">START</button>
+        <h1>TONÅR ABRA</h1>
+        <h2>Escape room</h2>
+        <h2>Vem kan hitta skatten?</h2>
+        <div>
+            <p>Lösenord:</p>
+            <input type="text" id="game-password">
+            <button onclick="StartScreenGame()">Enter</button>
+        </div>
+        
+        
+        <div id="settings" style="display: none;">
+            <p>Hur många spelare är ni?</p>
+            <input id="no-players" type="number" min="1" max="5">
+            <p>Vilken spelare är du?</p>
+            <input id="player-id" type="number" min="1" max="5">
+            <button onclick="StartGame(this)">START</button>
+        </div>
+        
     </div>
 
     <div class="game-container" style="display:none">
@@ -431,7 +444,11 @@
     <div class="room-div" id="room-31-1" style="background-image: url(img/room_kyrksalen/room_29-1.jpg); display: none;">
         <div class="inv-button" id="codebox-8" onclick="LockBox(this, 'Lägg ihop era personliga koder')" style="left:421px; top:483px; width:151px; height:111px; "></div>
     </div>
-    <div class="room-div" id="room-31-1-1" style="background-image: url(img/room_kyrksalen/room_29-1-1.jpg); display: none;"></div>
+    <div class="room-div" id="room-31-1-1" style="background-image: url(img/room_kyrksalen/room_29-1-1.jpg); display: none; ">
+        <div style="padding:3em;"><h1 style="text-align: center;font-size:52pt;text-shadow: 2px 2px 5px black;color: white;">Grattis!</h1> 
+            <h2 style="text-align: center; font-size:48pt;text-shadow: 2px 2px 5px black;color: white; ">Ni hittade skatten!</h2> </div>
+        
+    </div>
     <div class="room-div" id="room-32-1" style="background-image: url(img/room_storsal/room_32-1.jpg); display: none;">
         <div class="inv-button" onclick="SwitchRoom('31')" style="left:194px; top:233px; width:563px; height:400px;   "></div>
     </div>
@@ -452,9 +469,9 @@
         
     </div>
     <div class="room-button-container" >
-        <div class="room-button" id="left-button" onclick="LeftRoom()">Left</div>
-        <div class="room-button" id="back-button" onclick="BackRoom()">Back</div>
-        <div class="room-button" id="right-button" onclick="RightRoom()">Right</div>
+        <div class="room-button" id="left-button" onclick="LeftRoom()"></div>
+        <div class="room-button" id="back-button" onclick="BackRoom()"></div>
+        <div class="room-button" id="right-button" onclick="RightRoom()"></div>
     </div>
     <div class="key-container">
         <div class="key" id="key-1" style="display: none;"></div>

@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 body{
     background: black;
     border: 0;
     padding: 0;
     margin: 0;
+    font-family: 'Montserrat', sans-serif;
 }
 #AREA{
     position: absolute;
@@ -10,11 +12,21 @@ body{
 .game-container{
     height: 756px;
     width: 1004px;
+
+    display: grid;
+    grid-template-columns: 1004px 100px;
+    grid-template-rows: 100px 656px 2em 60px;
+    grid-template-areas: 
+    "room pigcode"
+    "room keys"
+    "message message"
+    "button .";
     transform: scale(1);
     transform-origin: left top;
+
 }
 .room-div{
-    
+    grid-area: room;
     height: 100%;
     width: 100%;
 
@@ -28,43 +40,76 @@ body{
 .inv-button:hover{
     cursor: zoom-in;
 }
-
-.room-button{
-    height: 60px;
-    width: 80px;
-
-    background: white;
-    padding: 10px;
-    text-align: center;
-}
-
 .room-button-container{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-.message-container{
+    grid-area: button;
 
+    display: flex;
+    justify-content: center;
+}
+.room-button{
+    position: absolute;
+    height: 60px;
+    width: 60px;
+    background-color: white;
+}
+#left-button{
+    background:url("img/other/left-arrow.jpg");
+    left: 0;
+}
+#right-button{
+    background:url("img/other/right-arrow.jpg");
+    right: 0;
+}
+#back-button{
+    background:url("img/other/back-arrow.jpg");
+    align-self: center;
+}
+
+
+.message-container{
+    grid-area: message;
     width: 100%;
     color: whitesmoke;
 }
 #pig-code{
+    grid-area: pigcode;
     padding: 1em;
     width: 100%;
     color: whitesmoke;
 }
 #start-screen{
     position: relative;
-    left: 50%;
+    margin: auto;
     width: 20%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     color: whitesmoke;
 }
-#start-screen input{
+#start-screen h1,h2{
+    text-align: center;
+}
+#settings{
     position: relative;
-    left: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: whitesmoke;
+    border: solid;
+    border-color: cornflowerblue;
+    border-radius: 2em;
+    border-width: 1em;
+}
+#settings input{
+    position: relative;
+
     width: 20%;
+}
+#settings button{
+    margin: 3em;
+    height: 2em;
+    width: 30%;
 }
 
 
@@ -228,28 +273,32 @@ body{
 }
 
 
-
 #candle-1{
+    cursor: pointer;
     position: absolute;
     background-repeat: no-repeat;
     left:243px; top:499px; width:45px; height:55px; background-position:-243px -499px;
 }
 #candle-2{
+    cursor: pointer;
     position: absolute;
     background-repeat: no-repeat;
     left:298px; top:492px; width:45px; height:72px; background-position:-298px -492px;
 }
 #candle-3{
+    cursor: pointer;
     position: absolute;
     background-repeat: no-repeat;
     left:348px; top:507px; width:37px; height:50px; background-position:-348px -507px;
 }
 #candle-4{
+    cursor: pointer;
     position: absolute;
     background-repeat: no-repeat;
     left:482px; top:476px; width:46px; height:75px; background-position:-482px -476px;
 }
 #candle-5{
+    cursor: pointer;
     position: absolute;
     background-repeat: no-repeat;
     left:685px; top:440px; width:49px; height:118px; background-position:-685px -440px;
@@ -268,7 +317,9 @@ body{
     left:445px; top:53px; width:172px; height:429px; background-position:-445px -53px;
 }
 .key-container{
+    grid-area: keys;
     display: flex;
+    flex-direction: column;
 }
 
 .key-container .key{

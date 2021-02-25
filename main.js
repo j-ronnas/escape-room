@@ -449,11 +449,11 @@ function PigButton(index){
 
 playerID = 0;
 finalCodes = [1314,2498,2367,1742,3129]
-function StartGame(element){
+function StartGame(){
     noPlayes = document.querySelector("#no-players").value
     playerID =document.querySelector("#player-id").value -1
-    document.querySelector(".game-container").style.display = "block"
-    element.parentElement.style.display = 'none'
+    document.querySelector(".game-container").style.display = "grid"
+    document.querySelector("#start-screen").style.display = 'none'
     correctCode = 0;
     for(i = 0 ;i<noPlayes ;i ++ ){
         correctCode += finalCodes[i]
@@ -461,5 +461,15 @@ function StartGame(element){
     console.log(correctCode)
     codes.get("codebox-8").correctCode = correctCode.toString()
     SwitchRoom(1)
+}
+
+function StartScreenGame(){
+    pw = document.querySelector("#game-password").value
+    if(pw == "abraescape"){
+        document.querySelector("#game-password").parentElement.style.display = "none"
+        
+        document.querySelector("#settings").style.display = "flex"
+        
+    }
 }
 
