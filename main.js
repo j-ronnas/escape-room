@@ -94,15 +94,12 @@ keys.set("key-7",{pickedUp:false})
 
 
 var activeRoomDiv = document.querySelector("#room-1");
-//console.log(activeRoomDiv);
 
 
 
 
 function SwitchRoom( roomIndex){
     codeDiv = document.querySelector("#code-div").style.display="none";
-    console.log("Room 32:" + roomMap.get("room-32").visited)
-    console.log(roomIndex)
     if(roomMap.get("room-32").visited && roomIndex == 28){
         SwitchRoom('32-1')
         return
@@ -168,7 +165,6 @@ function BackRoom(){
 function GoBack(){
     activeRoomDiv.style.display = "none";
     newRoomID=activeRoomDiv.id.slice(5,activeRoomDiv.id.length-2);
-    console.log(newRoomID);
     SwitchRoom(newRoomID)
     return
 
@@ -216,13 +212,11 @@ function CodeLock(element, codeText = "Kod"){
     }
     if('finalLockIDs' in codes.get(element.id)){
         locks = codes.get(element.id).finalLockIDs.split(',');
-        console.log(locks)
         if(locks.length == 0){
             console.log("All locks open")
         }
         newLocks = ""
         for( i= 0; i<locks.length; i++){
-            console.log(i)
             if(keys.get("key-" +locks[i]).pickedUp){
                 imageString = activeRoomDiv.style.backgroundImage.slice(0,activeRoomDiv.style.backgroundImage.length-6)
                 activeRoomDiv.style.backgroundImage= imageString+"-1.jpg\")";
@@ -231,27 +225,23 @@ function CodeLock(element, codeText = "Kod"){
                 newLocks+="," + locks[i]
             }
         }
-        console.log(newLocks)
         if(newLocks == ""){
             codes.get(element.id).isOpen=true;
         }else{
             newLocks = newLocks.slice(1)
             codes.get(element.id).finalLockIDs = newLocks
         }
-        console.log(codes.get(element.id).finalLockIDs)
         return
     }
     if(codes.get(element.id).hasCode){
         
         ShowCodeElement(element, codeText)
-        console.log(element);
         codeDiv.querySelector("button").onclick = function(){TryCode(element,OpenDoorInActiveRoom)}
         DisplayMessage("Dörren är låst, det behövs en kod")
         return
     }
     if('isDark' in codes.get(element.id)){
         if(codes.get(element.id).isDark){
-            console.log(element.id + " is dark")
             imageString = activeRoomDiv.style.backgroundImage.slice(0,activeRoomDiv.style.backgroundImage.length-6)
             activeRoomDiv.style.backgroundImage= imageString+"_open_dark.jpg\")";
         }else{
@@ -272,9 +262,7 @@ function TryCode(doorElement, callback){
     codeObject = codes.get(doorElement.id);
     success = false
     correctCodes = codeObject.correctCode.toLowerCase().split(',')
-    console.log(correctCodes)
     for(i = 0; i<correctCodes.length; i++){
-        console.log(correctCodes[i])
         success = success || correctCodes[i] == codeDiv.querySelector("input").value.toLowerCase()
     }
     if(success){
@@ -294,9 +282,6 @@ function ShowCodeElement(element, text = "Kod"){
     
     codeDiv.style.display="flex";
     rect = element.getBoundingClientRect();
-    console.log("left pos:" + rect.left)
-    console.log("rect" + rect.x  +", " + rect.width)
-    console.log("rect" + rect.y  +", " + rect.height)
     codeDivRect = codeDiv.getBoundingClientRect();
     codeDiv.style.left = rect.x + rect.width/2 -codeDivRect.width/2 + "px"
     codeDiv.style.top = rect.y + rect.height/2 -codeDivRect.height/2 + "px"
@@ -334,8 +319,6 @@ function LockBox(element, codeText = "Kod"){
             SwitchRoom(codes.get(element.id).leadsTo)
             UseKey("key-" +codes.get(element.id).keyID);
             codes.get(element.id).isOpen = true;
-        }else{
-            console.log("Box is locked");
         }
         return
     }
@@ -348,12 +331,8 @@ function LockBox(element, codeText = "Kod"){
 }
 
 function Toggle(element){
-    console.log(element.style)
     imageStrings =element.style.backgroundImage.split("+")
-    console.log(imageStrings)
-    console.log(imageStrings[1][0])
     variant = imageStrings[1][0]=='a'? 'b': 'a'
-    console.log(variant)
     element.style.backgroundImage= imageStrings[0] +"+" +variant + ".jpg\")";
 }
 
@@ -379,22 +358,13 @@ function TogglePropp(index){
             success = success && !propps[i]
         }
     }
-    console.log(success)
     if(success){
-        console.log(success)
         TurnOnLights()
     }
 }
 
 function TurnOnLights(){
-    console.log("Turning onlights")
-
     for(door of codes){
-        console.log(door[0])
-        console.log(door[1])
-
-        console.log(door[1].isDark)
-        
         if('isDark' in door[1]){
             door[1].isDark = false;
             
@@ -421,14 +391,10 @@ function DisplayMessage(message){
 
 function ClearMessage(){
     if(messageFlag == 1){
-        console.log("There is a message")
         messageFlag +=1
     }else if(messageFlag == 2){
         document.querySelector(".message-container").innerHTML = ""
-        console.log("Clearing message")
         messageFlag = 0
-    }else{
-        console.log("There is no message")
     }
 }
 
@@ -458,7 +424,6 @@ function StartGame(){
     for(i = 0 ;i<noPlayes ;i ++ ){
         correctCode += finalCodes[i]
     }
-    console.log(correctCode)
     codes.get("codebox-8").correctCode = correctCode.toString()
     SwitchRoom(1)
 }
